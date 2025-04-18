@@ -1,0 +1,60 @@
+import random
+import time
+from colorama import init, Fore, Style
+
+# Initialize colorama
+init(autoreset=True)
+
+def start_game():
+    print(Fore.CYAN + Style.BRIGHT + "\n🎮 Welcome to Rock-Paper-Scissors by Manaswitha 🎮\n")
+    choices = ['rock', 'paper', 'scissors']
+    player_score = 0
+    computer_score = 0
+    round_num = 1
+
+    while True:
+        print(Fore.YELLOW + f"\n🔁 Round {round_num}")
+        user_pick = input(Fore.GREEN + "👉 Choose [rock/paper/scissors] or type 'exit' to quit: ").lower().strip()
+
+        if user_pick == 'exit':
+            print(Fore.LIGHTMAGENTA_EX + "\n👋 Exiting the game... Thank you for playing!\n")
+            break
+
+        if user_pick not in choices:
+            print(Fore.RED + "❌ Invalid choice. Please enter rock, paper, or scissors.")
+            continue
+
+        computer_pick = random.choice(choices)
+        print(Fore.LIGHTBLUE_EX + f"🤖 Computer chose: {computer_pick}")
+        time.sleep(0.5)
+
+        if user_pick == computer_pick:
+            print(Fore.LIGHTYELLOW_EX + "😐 It's a draw!")
+        elif (
+            (user_pick == 'rock' and computer_pick == 'scissors') or
+            (user_pick == 'scissors' and computer_pick == 'paper') or
+            (user_pick == 'paper' and computer_pick == 'rock')
+        ):
+            print(Fore.GREEN + "✅ You win this round!")
+            player_score += 1
+        else:
+            print(Fore.RED + "❌ Computer wins this round!")
+            computer_score += 1
+
+        print(Fore.LIGHTCYAN_EX + f"📊 Scoreboard: You {player_score} | Computer {computer_score}")
+        round_num += 1
+
+    # Final results
+    print(Fore.MAGENTA + "\n🏁 Final Results:")
+    print(Fore.CYAN + f"🎯 You: {player_score} | 💻 Computer: {computer_score}")
+    print(Fore.WHITE + "-" * 40)
+
+    if player_score > computer_score:
+        print(Fore.GREEN + Style.BRIGHT + "🎉 Congratulations! You are the final winner!")
+    elif player_score < computer_score:
+        print(Fore.RED + Style.BRIGHT + "💻 Computer wins overall. Better luck next time!")
+    else:
+        print(Fore.YELLOW + Style.BRIGHT + "⚖️ It was a tie overall!")
+
+if __name__ == "__main__":
+    start_game()
